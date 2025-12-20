@@ -1,145 +1,159 @@
-/* 1. Reset & Variables */
 :root {
-    --bg-color: #ffffff;
-    --text-color: #1a1a1a;
-    --accent-pink: #ff00ff;
-    --sidebar-width: 42%; /* Adjusted to match your screenshots */
-    --transition-speed: 0.4s;
+    --bg-color: #000000;
+    --cobalt-primary: #1a3cff;
+    --cobalt-soft: rgba(26, 60, 255, 0.35);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; background-color: var(--bg-color); }
 
 body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Helvetica", Arial, sans-serif;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.07em;
     background-color: var(--bg-color);
-    color: var(--text-color);
-    overflow: hidden; /* Lock body to prevent double scrollbars */
+    line-height: 0.82;
 }
 
-/* 2. Layout Structure */
-.main-container {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
+/* THE PIXELATED LIGHT ENGINE */
+.light-engine {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
 }
 
-/* 3. Sidebar Styling */
-.nav-sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    padding: 40px;
+/* THE PIXEL LAYER */
+.pixel-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* Creates a 4px by 4px grid of tiny dots */
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 4px 4px; 
+    opacity: 0.8;
+    z-index: 1; /* Sits above the glow to "break it up" into pixels */
+}
+
+.glow-core {
+    position: absolute;
+    top: 5%; right: -5%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, var(--cobalt-primary) 0%, transparent 70%);
+    filter: blur(100px);
+    opacity: 0.7;
+    mix-blend-mode: screen;
+}
+
+.glow-wash {
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 100vw; height: 100vh;
+    background: radial-gradient(circle, var(--cobalt-soft) 0%, transparent 80%);
+    filter: blur(180px);
+    opacity: 0.4;
+}
+
+/* MASTER LAYOUT */
+.master-container {
+    display: grid;
+    grid-template-columns: 38% 62%;
+    min-height: 100vh;
+    padding: 80px 60px;
+}
+
+.sidebar {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 160px);
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #f0f0f0;
+    gap: 120px;
 }
 
-.site-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 60px;
-    letter-spacing: 0.05em;
-}
+.identity-lockup { font-size: 19px; font-weight: 900; }
 
-.project-list {
-    list-style: none;
-}
-
-.project-link {
-    font-size: 4.8vw;
-    font-weight: 800;
+.nav-anchor {
     text-decoration: none;
-    color: var(--text-color);
-    line-height: 0.85;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 4px;
-    transition: color var(--transition-speed);
+    color: #ffffff;
+    font-size: 5.5vw; 
+    font-weight: 900;
+    opacity: 0.1;
+    transition: 0.4s ease;
 }
 
-.project-link:hover {
-    color: #888;
+.nav-anchor.active { opacity: 1; }
+
+/* THE ORIGINAL JUSTIFIED BLOCK */
+.hero-statement {
+    font-size: 8.2vw;
+    font-weight: 900;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
-.project-link.active {
-    color: #556688; /* Blue-grey color seen in your screenshot */
+/* SOFT MISTED TEXT GLOW */
+.glow-text {
+    color: #ffffff;
+    text-shadow: 
+        0 0 30px rgba(26, 60, 255, 0.5),
+        0 0 60px rgba(26, 60, 255, 0.2);
 }
 
-.highlight {
-    color: var(--accent-pink);
-}
-
-/* 4. Content Area Styling */
-.content-area {
-    width: calc(100% - var(--sidebar-width));
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    padding: 40px;
-}
-
-section {
+.stage-section {
     min-height: 100vh;
-    margin-bottom: 10vh;
+    padding-bottom: 35vh;
 }
 
-.intro-text {
-    font-size: 2.2vw;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 1.1;
-    max-width: 500px;
-    margin-top: 20px;
+/* REACTIVE NAV BAR */
+.nav-anchor {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 5.5vw; 
+    font-weight: 900;
+    opacity: 0.1;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth industrial easing */
+    display: block;
+    line-height: 0.8;
+    cursor: pointer;
 }
 
-.project-header h2 {
-    font-size: 16px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
+/* Hover state for Nav */
+.nav-anchor:hover {
+    opacity: 0.5;
+    transform: translateX(10px); /* Subtle slide out */
 }
 
-.subtitle {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 40px;
+.nav-anchor.active { 
+    opacity: 1; 
+    transform: translateX(0);
 }
 
-/* 5. Project Grid */
-.project-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
-    font-size: 14px;
-    line-height: 1.5;
+/* REACTIVE PROJECT TITLES */
+#projects .hero-statement {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+    opacity: 0.6; /* Dim unselected projects slightly */
 }
 
-.grid-col h3 {
-    font-size: 13px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+#projects .hero-statement:hover {
+    opacity: 1;
+    transform: scale(1.02); /* Slight grow */
+    letter-spacing: -0.05em; /* Opens up the tracking slightly on hover */
+    /* Add a sophisticated soft blue shadow on hover */
+    text-shadow: 0 0 20px rgba(26, 60, 255, 0.3);
 }
 
-.pipeline-list {
-    padding-left: 0;
-    list-style-position: inside;
+/* Ensure the glow-text stays bright even when not hovered */
+.glow-text {
+    opacity: 1 !important;
 }
 
-.media-container {
-    margin-top: 60px;
-    width: 100%;
-}
-
-.placeholder-box {
-    width: 100%;
-    height: 500px;
-    background: #f9f9f9;
-    border: 1px dashed #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #999;
+/* Optional: Add a custom digital cursor if you want to go full sophisticated */
+body {
+    cursor: crosshair; /* Precise digital feel */
 }
