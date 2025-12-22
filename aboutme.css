@@ -1,0 +1,94 @@
+:root {
+  --cobalt: #1a3cff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+/* MASTER LAYOUT */
+.master-container {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  padding: 80px 60px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 160px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes scroll indicator to bottom */
+}
+
+/* THE VERTICAL STRETCH */
+.bio-section {
+  min-height: 80vh; /* Each paragraph takes up 80% of the screen height */
+  display: flex;
+  align-items: center; /* Centers text vertically in its "stage" */
+  padding-bottom: 20vh;
+}
+
+.bio-text {
+  font-size: 4vw !important;
+  font-weight: 900;
+  line-height: 0.9;
+  text-align: justify;
+  text-justify: inter-word;
+  letter-spacing: -0.05em;
+}
+
+/* SCROLL DEPTH INDICATOR (SOPHISTICATED DETAIL) */
+.scroll-indicator {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em;
+}
+
+.scroll-bar-track {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 10px;
+}
+
+.scroll-bar-fill {
+  width: 30%; /* You can animate this with JS later */
+  height: 100%;
+  background: var(--cobalt);
+  box-shadow: 0 0 10px var(--cobalt);
+}
+
+/* LIGHT ENGINE */
+.light-engine {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+}
+
+.pixel-grid {
+  position: absolute;
+  width: 100%; height: 100%;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.glow-core {
+  position: absolute;
+  top: 20%; right: -10%;
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, var(--cobalt) 0%, transparent 70%);
+  filter: blur(120px);
+  opacity: 0.5;
+}
+
+.glow-text { text-shadow: 0 0 25px var(--cobalt); }
+
+.back-link { text-decoration: none; color: inherit; font-size: 19px; font-weight: 900; opacity: 0.5; transition: 0.3s; }
+.back-link:hover { opacity: 1; }
